@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/action_service/IService.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/Warehouse.dat</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/data_objects/DaoFactory.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/action_service/Service.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/business_object/TypeOfReceipt.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/data_objects/ProductDao.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/data_objects/IWarehouseDao.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/data_objects/WarehouseDao.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/application/Program.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/business_object/Product.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/business_object/TypeOfProduct.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/business_object/Warehouse.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/data_objects/IProductDao.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/utils/Status.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/application/Menu.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/utils/IValidation.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/utils/Validation.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/data_objects/IDaoFactory.java</file>
+            <file>file:/D:/FPT%20University/Fall%202023/LAB211/Source%20Code/J1.L.P0025.StoreManagementAtConvenienceStore/src/Product.dat</file>
+        </group>
+    </open-files>
+</project-private>
