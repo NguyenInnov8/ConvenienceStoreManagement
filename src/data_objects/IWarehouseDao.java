@@ -6,11 +6,17 @@
 package data_objects;
 
 import business_object.Warehouse;
+import java.util.List;
 
 /**
  *
  * @author ASUS
  */
 public interface IWarehouseDao {
-    void createReceipt(Warehouse receipt);
+    boolean addReceipt(Warehouse receipt);
+    int getSize();
+    List<Warehouse> getReceiptList(String productCode);
+    boolean isProductExist(String productCode);
+    boolean loadFromFile();
+    boolean saveToFile();
 }

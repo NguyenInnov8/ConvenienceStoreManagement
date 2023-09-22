@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package application;
+package action_service;
 
 import utils.MyUtils;
 import action_service.Service;
+import business_object.TypeOfReceipt;
 
 
 /**
@@ -14,7 +15,7 @@ import action_service.Service;
  * @author ASUS
  */
 public class Menu {
-    Service myService;
+    static final Service myService = new Service();
     int choice;
 
     void mainMenu() {
@@ -61,11 +62,13 @@ public class Menu {
     
     public void mainMenuImpl() {
         do {
+            myService.loadProductsFromFile();
+            myService.loadWarehouseFromFile();
             mainMenu();
             choice = MyUtils.inputInteger("Please enter your choice: ", 1, 5);
             
             switch (choice) {
-                case 1: 
+                case 1:
                     productManagementImpl();
                     break;
                 case 2:
@@ -73,6 +76,17 @@ public class Menu {
                 case 3:
                     break;
                 case 4:
+                    if(myService.saveProductsToFile()) {
+                        System.out.println("Successfully to save products to product.dat");
+                    } else {
+                        System.out.println("Failed to save products to product.dat");
+                    }
+                    
+                    if(myService.saveWarehouseToFile()) {
+                        System.out.println("Successfully to save to warehouse.dat");
+                    } else {
+                         System.out.println("Failed to save products to warehouse.dat");                       
+                    }
                     break;
                 case 5:
                     break;
@@ -87,13 +101,16 @@ public class Menu {
 
             switch (choice) {
                 case 1:
-          
+                    myService.addProduct();
                     break;
                 case 2:
+                    myService.updateProduct();
                     break;
                 case 3:
+                    myService.deleteProduct();
                     break;
                 case 4:
+                    myService.showAllProducts();
                     break;
                 case 5:
                     mainMenuImpl();
@@ -102,5 +119,46 @@ public class Menu {
 
         } while (choice != 5);
     }
-
+    
+    public void warehouseManagementImpl() {
+        do {
+            manageWarehouseMenu();
+            choice = myService.validator.checkInt("Please input your choice: ", 1, 3);
+            
+            switch(choice) {
+                case 1:
+                    myService.addReceipt(TypeOfReceipt.IMPORT);
+                    break;
+                case 2:
+                    myService.addReceipt(TypeOfReceipt.EXPORT);
+                    break;
+                case 3:
+                    mainMenuImpl();
+        }   
+        } while(choice != 3);
+    }
+    
+    public void reportMenuImpl() {
+        do {
+            reportMenu();
+            choice = myService.validator.checkInt("Please input your choice: ", 1, 5);
+            
+            switch(choice) {
+                case 1:
+                    myService.showExpiredProducts();
+                    break;
+                case 2:
+                    myService.showSellingProducts();
+                    break;
+                case 3:
+                    myService.showOutOfStockProducts();
+                    break;
+                case 4:
+                    myService.showReceipt();
+                    break;
+                case 5:
+                    mainMenuImpl();
+            }
+        } while(choice != 5);
+    }
 }

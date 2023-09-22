@@ -14,10 +14,10 @@ public interface IProductDao {
     Product getProduct(String productCode);
     void updateProduct(Product product);
     void deleteProduct(Product product);
-    void addProduct();
+    boolean addProduct(Product product);
     List<Product> getExpiredProduct();
     List<Product> getSellingProduct();
     List<Product> getOutOfStockProduct();
-    boolean saveProductsToFile(String filePath);
-    boolean loadProductFromFile(String filePath);
+    boolean saveProductsToFile();
+    boolean loadProductFromFile();
 }

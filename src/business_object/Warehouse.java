@@ -6,6 +6,7 @@
 package business_object;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,14 +15,14 @@ import java.util.List;
  */
 public class Warehouse {
     private int code;
-    private long timeStamp;
+    private Date timeStamp;
     private List<Product> items;
     private TypeOfReceipt type;
 
-    public Warehouse(int code, long timeStamp, TypeOfReceipt type) {
+    public Warehouse(int code, Date timeStamp, List<Product> items , TypeOfReceipt type) {
         this.code = code;
         this.timeStamp = timeStamp;
-        this.items = new ArrayList<>();
+        this.items = items;
         this.type = type;
     }
 
@@ -33,11 +34,11 @@ public class Warehouse {
         this.code = code;
     }
 
-    public long getTimeStamp() {
+    public Date getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(long timeStamp) {
+    public void setTimeStamp(Date timeStamp) {
         this.timeStamp = timeStamp;
     }
 

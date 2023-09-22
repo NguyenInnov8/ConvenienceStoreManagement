@@ -10,6 +10,6 @@ package business_object;
  * @author ASUS
  */
 public enum TypeOfReceipt {
-    Import,
-    Export
+    IMPORT,
+    EXPORT
 }

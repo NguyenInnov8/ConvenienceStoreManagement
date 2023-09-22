@@ -6,7 +6,10 @@
 package utils;
 
 import business_object.Product;
+import business_object.TypeOfProduct;
+import business_object.TypeOfReceipt;
 import business_object.Warehouse;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,25 +20,21 @@ public interface IValidation {
     String inputString(String msg, Status status);
     
     String checkProductCodeExist(String msg ,List<Product> listProduct, Status status);
-
+    
     String checkReceiptCodeExist(String msg, List<Warehouse> listWareHouse, Status status);
 
-    String checkBeforeDate(String msg, Status status);
+    Date checkBeforeDate(String msg, Status status);
 
-    String checkAfterDate(String msg, String pd, Status status);
+    Date checkAfterDate(String msg, Date productionDate, Status status);
 
-    String checkType(String msg,Status status);
-    
-    String checkSize(String msg,String status);
-    
+    TypeOfProduct checkType(String msg,Status status);
+        
     int checkInt(String msg, int min, int max);
 
     double checkDouble(String msg, double min, double max);
 
     boolean checkYesOrNo(String msg);
 
-    boolean checkUpdateOrDelete(String msg);
-
-    boolean checkFileOrCollection(String msg);
-
+    
+    TypeOfReceipt checkTradeType(String msg, Status status);
 }

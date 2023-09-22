@@ -42,48 +42,73 @@ public class Product {
         return name;
     }
 
-    public void setName(String name) {
+    public boolean setName(String name) {
+        if(name.isEmpty()) {
+            return false;
+        }
         this.name = name;
+        return true;
     }
 
     public double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public boolean setPrice(double price) {
+        if(price < 0) {
+            return false;
+        }
         this.price = price;
+        return true;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public boolean setQuantity(int quantity) {
+        if(quantity < 0) {
+            return false;
+        }
         this.quantity = quantity;
+        return true;
     }
 
     public Date getManufacturingDate() {
         return manufacturingDate;
     }
 
-    public void setManufacturingDate(Date manufacturingDate) {
+    public boolean setManufacturingDate(Date manufacturingDate) {
+        if(manufacturingDate == null) {
+            return false;
+        }
         this.manufacturingDate = manufacturingDate;
+        return true;
     }
 
     public Date getExpiredDate() {
         return expiredDate;
     }
 
-    public void setExpiredDate(Date expiredDate) {
+    public boolean setExpiredDate(Date expiredDate) {
+        if(expiredDate == null) {
+            return false;
+        }
+        
         this.expiredDate = expiredDate;
+        return true;
     }
 
     public TypeOfProduct getType() {
         return type;
     }
 
-    public void setType(TypeOfProduct type) {
-        this.type = type;
+    public boolean setType(TypeOfProduct type) {
+       if(type == null) {
+           return false;
+       }
+       this.type = type;
+       return true;
     }
     
     public static Comparator sortAscQuantity = new Comparator() {

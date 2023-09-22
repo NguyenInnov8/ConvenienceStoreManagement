@@ -5,7 +5,11 @@
  */
 package data_objects;
 
+import utils.IValidation;
+
 
 public interface IDaoFactory {
     IProductDao productDao();
+    IValidation validator();
+    IWarehouseDao warehouseDao();
 }

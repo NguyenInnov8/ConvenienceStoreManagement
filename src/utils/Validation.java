@@ -7,6 +7,7 @@ package utils;
 
 import business_object.Product;
 import business_object.TypeOfProduct;
+import business_object.TypeOfReceipt;
 import business_object.Warehouse;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -14,8 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -48,125 +47,103 @@ public class Validation implements IValidation {
     }
 
     @Override
-    public String checkProductCodeExist(String msg ,List<Product> listProduct, Status status) {
+    public String checkProductCodeExist(String msg, List<Product> listProduct, Status status) {
         int flag;
-        while(true) {
-        flag = 0;
-        String prdID = inputString(msg, status);
-        
-        for (Product product : listProduct) {
-            if(product.getCode().equalsIgnoreCase(prdID)) {
-                System.err.println("This Product Code has existed before.\n"
-                        + "Please input another one.");
-                flag = 1;
+        while (true) {
+            flag = 0;
+            String prdID = inputString(msg, status);
+
+            for (Product product : listProduct) {
+                if (product.getCode().equalsIgnoreCase(prdID)) {
+                    System.err.println("This Product Code has existed before.\n"
+                            + "Please input another one.");
+                    flag = 1;
+                }
             }
-        }
-        
-        if(flag == 1) {
-            continue;
-        }
-        
-        return prdID;
+
+            if (flag == 1) {
+                continue;
+            }
+
+            return prdID;
         }
     }
 
     @Override
     public String checkReceiptCodeExist(String msg, List<Warehouse> listWareHouse, Status status) {
         int flag = 0;
-        while(true) {
-        flag = 0;
-        String receiptID = inputString(msg, status);
-        
-        for (Warehouse warehouse : listWareHouse) {
-            if(warehouse.getCode() ==  Integer.parseInt(receiptID.trim())){
-                System.err.println("This Product Code has existed before.\n"
-                        + "Please input another one.");
-                flag = 1;
+        while (true) {
+            flag = 0;
+            String receiptID = inputString(msg, status);
+
+            for (Warehouse warehouse : listWareHouse) {
+                if (warehouse.getCode() == Integer.parseInt(receiptID.trim())) {
+                    System.err.println("This Receipt Code has existed before.\n"
+                            + "Please input another one.");
+                    flag = 1;
+                }
             }
-        }
-        
-        if(flag == 1) {
-            continue;
-        }
-        return receiptID;
+
+            if (flag == 1) {
+                continue;
+            }
+            return receiptID;
         }
     }
 
     @Override
-    public String checkBeforeDate(String msg, Status status) {
-        String dateFormat = "dd/MM/yyyy";
-        DateFormat sdf = new SimpleDateFormat(dateFormat);
+    public Date checkBeforeDate(String msg, Status status) {
+        String pattern = "dd/MM/yyyy";
+        DateFormat sdf = new SimpleDateFormat(pattern);
         sdf.setLenient(false);
         while (true) {
             String dateStr = inputString(msg, status);
-            if (status == Status.UPDATE && dateStr.isEmpty() && dateStr.contains(" ")) {
-                return dateStr;
+            if (status == Status.UPDATE && dateStr.isEmpty()) {
+                return null;
             }
             try {
-                sdf.parse(dateStr);
-            } catch (ParseException ex) {
-                System.err.println("Please enter correct format with \"dd/MM/yyyy\" format");
+                Date date = sdf.parse(dateStr);
+                return date;
+            } catch (ParseException e) {
+                System.err.println("Incorrect date! Please enter again.");
+            }
+        }
+
+    }
+
+    @Override
+    public Date checkAfterDate(String msg, Date productionDate, Status status) {
+        while (true) {
+            Date expiredDate = checkBeforeDate(msg, status);
+            if (expiredDate.before(productionDate)) {
+                System.err.println("Expiration date must after production date! Please enter again.");
                 continue;
             }
-            return dateStr;
+            return expiredDate;
         }
     }
 
     @Override
-    public String checkAfterDate(String msg, String pd, Status status) {
-        String dateFormat = "dd/MM/yyyy";
-        DateFormat sdf = new SimpleDateFormat(dateFormat);
-        sdf.setLenient(false);
-
-        while (true) {
-
-            String initDate = checkBeforeDate(msg, status);
-            try {
-                Date d1 = sdf.parse(initDate);
-
-            } catch (ParseException ex) {
-                Logger.getLogger(Validation.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-    }
-
-    @Override
-    public String checkType(String msg, Status status) {
-        
-        while (true) {
+    public TypeOfProduct checkType(String msg, Status status) {
+            while(true){
             String type = inputString(msg, status);
-
-            if (type.isEmpty() && status == Status.UPDATE) {
-                return type;
+            if(status == Status.UPDATE && type.isEmpty()){
+                return null;
             }
-
-            TypeOfProduct typeOfProduct;
-            try {
-                typeOfProduct = TypeOfProduct.valueOf(type.toUpperCase());
-            } catch (IllegalArgumentException e) {
-                System.err.println("Invalid product type. There are only 2 types of Product which are \"DAILY\" and \"LONG\".");
-                continue;
+            if(type.equalsIgnoreCase("DAILY")){
+                return TypeOfProduct.DAILY;
+            } else if(type.equalsIgnoreCase("LONG")){
+                return TypeOfProduct.LONG;
+            } else{
+                System.err.println("Must input 1 in 2 type product is 'Daily' or 'Long'! Please input again.");
             }
-
-            if (typeOfProduct != TypeOfProduct.DAILY && typeOfProduct != TypeOfProduct.LONG) {
-                System.err.println("Invalid product type. There are only 2 types of Product which are \"DAILY\" and \"LONG\".");
-                continue;
-            }
-
-            return type;
         }
-    }
-
-    @Override
-    public String checkSize(String msg, String status) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public int checkInt(String msg, int min, int max) {
         while (true) {
-            String rawInput = inputString(msg, Status.NONE);
+            String rawInput = inputString(msg, Status.UPDATE);
 
             if (rawInput.isEmpty() || rawInput.contains(" ")) {
                 return -1;
@@ -189,7 +166,7 @@ public class Validation implements IValidation {
     @Override
     public double checkDouble(String msg, double min, double max) {
         while (true) {
-            String rawInput = inputString(msg, Status.NONE);
+            String rawInput = inputString(msg, Status.UPDATE);
 
             if (rawInput.isEmpty() || rawInput.contains(" ")) {
                 return -1;
@@ -225,12 +202,20 @@ public class Validation implements IValidation {
     }
 
     @Override
-    public boolean checkUpdateOrDelete(String msg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public TypeOfReceipt checkTradeType(String msg, Status status) {
+        while (true) {
+            String type = inputString(msg, status);
+            if (status == Status.UPDATE && type.isEmpty()) {
+                return null;
+            }
+            if (type.equalsIgnoreCase("IMPORT")) {
+                return TypeOfReceipt.IMPORT;
+            } else if (type.equalsIgnoreCase("EXPORT")) {
+                return TypeOfReceipt.EXPORT;
+            } else {
+                System.err.println("Must input 1 in 2 trade type is 'Import' or 'Export'! Please input again.");
+            }
+        }
 
-    @Override
-    public boolean checkFileOrCollection(String msg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

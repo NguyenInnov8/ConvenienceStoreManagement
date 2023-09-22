@@ -20,16 +20,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import utils.IValidation;
-import utils.MyUtils;
-import utils.Status;
-import utils.Validation;
 
 
 public class ProductDao implements IProductDao{
-    private final String PRODUCT_FILE_PATH = "D:\\FPT University\\Fall 2023\\LAB211\\Source Code\\J1.L.P0025.StoreManagementAtConvenienceStore\\src\\Product.dat";
-    private List<Product> products;
-    private IValidation validator = new Validation();
+    private final String PRODUCT_FILE_PATH = "src\\Product.dat";
+    private List<Product> products = new ArrayList<>();
     
     public ProductDao() {
         this.products = new ArrayList<Product>();
@@ -64,34 +59,8 @@ public class ProductDao implements IProductDao{
     }
 
     @Override
-    public void addProduct() {
-        loadProductFromFile(PRODUCT_FILE_PATH);
-        
-        String productCode = "";
-        
-        do {
-        try {
-            SimpleDateFormat dtobj = new SimpleDateFormat("dd/MM/yyyy");
-            productCode = validator.checkProductCodeExist("Input product code: ", products, Status.UPDATE);
-           
-            String productName = validator.inputString("Input product name", Status.UPDATE);
-            double price = validator.checkDouble("Input product price: ", 1.0, Double.MAX_VALUE);
-            int quantity = validator.checkInt("Enter product quantity", 1, Integer.MAX_VALUE);
-            TypeOfProduct type = TypeOfProduct.valueOf(validator.checkType("Enter product Type (DAILY & LONG):", Status.UPDATE));
-            String strManufacturingDate = validator.inputString("Enter manufacturing date: ", Status.UPDATE);
-            String strExpiredDate = validator.inputString("Enter expired date: ", Status.UPDATE);
-            
-            Date manufacturingDate = dtobj.parse(strManufacturingDate);
-            Date expiredDate = dtobj.parse(strExpiredDate);
-            
-            Product addedProduct = new Product(productCode, productName, price, quantity,type, manufacturingDate, expiredDate);
-            products.add(addedProduct);
-            System.out.println("Product: ID " + addedProduct.getCode() + " has been added to the Database;");
-            saveProductsToFile(PRODUCT_FILE_PATH);
-        } catch (ParseException ex) {
-            System.err.println("Please enter correct format \"dd/MM/yyyy\"");
-        }
-        } while(validator.checkYesOrNo("Do you want to continue adding product? Press \"Y\" or \"N\""));
+    public boolean addProduct(Product product) {
+        return products.add(product);
     }
 
     @Override
@@ -129,10 +98,10 @@ public class ProductDao implements IProductDao{
     }
     
     @Override
-    public boolean saveProductsToFile(String filePath) {
+    public boolean saveProductsToFile() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
         try {
-            PrintWriter printWriter = new PrintWriter(filePath);
+            PrintWriter printWriter = new PrintWriter(PRODUCT_FILE_PATH);
             for(Product product: products) {
                 printWriter.println(product.getCode() + ", " + product.getName() + ", " + product.getPrice()+ ", " + product.getQuantity()+ ", " + product.getType() + ", " + dateFormat.format(product.getManufacturingDate())+ ", " + dateFormat.format(product.getExpiredDate()));
             }
@@ -146,8 +115,8 @@ public class ProductDao implements IProductDao{
     }
     
     @Override
-    public boolean loadProductFromFile(String filePath) {
-        File file = new File(filePath);
+    public boolean loadProductFromFile() {
+        File file = new File(PRODUCT_FILE_PATH);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         if(!file.exists()) {

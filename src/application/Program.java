@@ -5,13 +5,12 @@
  */
 package application;
 
-import action_service.IService;
-import action_service.Service;
-import java.util.Date;
+import action_service.Menu;
+
 
 public class Program {
     public static void main(String[] args) {
-        IService myService = new Service();
-        myService.addProduct();
+        Menu myMenu = new Menu();
+        myMenu.mainMenuImpl();
     }
 }

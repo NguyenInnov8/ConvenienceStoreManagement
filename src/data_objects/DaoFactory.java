@@ -5,6 +5,9 @@
  */
 package data_objects;
 
+import utils.IValidation;
+import utils.Validation;
+
 /**
  *
  * @author ASUS
@@ -15,5 +18,14 @@ public class DaoFactory implements IDaoFactory{
     public IProductDao productDao() {
         return new ProductDao();
     }
-    
+
+    @Override
+    public IValidation validator() {
+        return new Validation();
+    }
+
+    @Override
+    public IWarehouseDao warehouseDao() {
+        return new WarehouseDao();
+    }
 }

@@ -6,7 +6,7 @@
 package action_service;
 
 import business_object.Product;
-import java.util.List;
+import business_object.TypeOfReceipt;
 
 /**
  *
@@ -14,11 +14,22 @@ import java.util.List;
  */
 public interface IService {
     // Product repo
-    List<Product> getAllProducts();
+    void showAllProducts();
     Product getProduct(String productCode);
-    void updateProduct(Product product);
-    void deleteProduct(Product product);
+    void updateProduct();
+    void deleteProduct();
     void addProduct();
-    
+    // Warehouse Repository
+    void addReceipt(TypeOfReceipt type);
+    // Report Repository
+    void showExpiredProducts();
+    void showSellingProducts();
+    void showOutOfStockProducts();
+    void showReceipt();
+    // File handling repository
+    boolean loadProductsFromFile();
+    boolean saveProductsToFile();
+    boolean loadWarehouseFromFile();
+    boolean saveWarehouseToFile();
     
 }
